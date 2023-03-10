@@ -1,5 +1,3 @@
-# CSE455FinalProject
-
 ### Kaggle Bird Classification Competition
 Project Created by Seulchan Han and Daniel Tameishi
 
