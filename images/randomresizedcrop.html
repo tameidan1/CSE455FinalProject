@@ -1,0 +1,1338 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script>
+    const GTAG_ENABLED =  true ;
+    const GTAG_TRACKING_ID = "UA-121182717-1";
+    const SENTRY_DSN_FRONTEND = "https://6284059d22664211881c89b4c409c619@o241170.ingest.sentry.io/5629308".trim();
+    const GLOBAL_CSRF_TOKEN = 'a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc';
+    const MEDIA_URL = "https://production-media.paperswithcode.com/";
+    const ASSETS_URL = "https://production-assets.paperswithcode.com";
+    run_after_frontend_loaded = window.run_after_frontend_loaded || [];
+  </script>
+  <link rel="preconnect" href="https://production-assets.paperswithcode.com"><link rel="dns-prefetch" href="https://production-assets.paperswithcode.com"><link rel="preload" as="font" type="font/woff2" href="https://production-assets.paperswithcode.com/perf/fonts/65e877e527022735c1a1.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="https://production-assets.paperswithcode.com/perf/fonts/917632e36982ca7933c8.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="https://production-assets.paperswithcode.com/perf/fonts/f1405bd8a987c2ea8a67.woff2" crossorigin><script>(()=>{if(GTAG_ENABLED){const t=document.createElement("script");function n(){window.dataLayer.push(arguments)}t.src=`https://www.googletagmanager.com/gtag/js?id=${GTAG_TRACKING_ID}`,document.head.appendChild(t),window.dataLayer=window.dataLayer||[],window.gtag=n,n("js",new Date),n("config",GTAG_TRACKING_ID),window.captureOutboundLink=function(t){n("event","click",{event_category:"outbound",event_label:t})}}else window.captureOutboundLink=function(n){document.location=n}})();</script><link rel="preload" as="script" href="https://production-assets.paperswithcode.com/perf/766.4af6b88b.js"><link rel="preload" as="script" href="https://production-assets.paperswithcode.com/perf/351.a22a9607.js"><link rel="preload" as="script" href="https://production-assets.paperswithcode.com/perf/814.49dcf06c.js"><link rel="preload" as="style" href="https://production-assets.paperswithcode.com/perf/918.c41196c3.css"><link rel="preload" as="style" href="https://production-assets.paperswithcode.com/perf/view_method.e499b4af.css"><link rel="preload" as="script" href="https://production-assets.paperswithcode.com/perf/view_method.c1f0a493.js"><link rel="stylesheet" href="https://production-assets.paperswithcode.com/perf/918.c41196c3.css"><link rel="stylesheet" href="https://production-assets.paperswithcode.com/perf/view_method.e499b4af.css">
+  
+    
+
+
+  <!-- Metadata -->
+  <title>Random Resized Crop Explained | Papers With Code</title>
+  <meta name="description" content="RandomResizedCrop is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.
+
+Image Credit: Apache MXNet" />
+  
+
+
+  <!-- Open Graph protocol metadata -->
+  <meta property="og:title" content="Papers with Code - Random Resized Crop Explained">
+  <meta property="og:description" content="RandomResizedCrop is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.
+
+Image Credit: Apache MXNet">
+  
+  <meta property="og:image" content="https://production-media.paperswithcode.com/methods/output_12_0_PevPHfi.png">
+  
+  <meta property="og:url" content="https://paperswithcode.com/method/randomresizedcrop">
+  
+
+
+  <!-- Twitter metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@paperswithcode">
+  <meta name="twitter:title" content="Papers with Code - Random Resized Crop Explained">
+  <meta name="twitter:description" content="RandomResizedCrop is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.
+
+Image Credit: Apache MXNet">
+  <meta name="twitter:creator" content="@paperswithcode">
+  <meta name="twitter:url" content="https://paperswithcode.com/method/randomresizedcrop">
+  <meta name="twitter:domain" content="paperswithcode.com">
+
+
+<!-- JSON LD -->
+
+<script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@graph": {
+        "@type": "CreativeWork",
+        "@id": "randomresizedcrop",
+        "name": "Random Resized Crop Explained",
+        "description": "RandomResizedCrop is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.\n\nImage Credit: Apache MXNet",
+        "url": "https://paperswithcode.com/method/randomresizedcrop",
+        "image": "https://production-media.paperswithcode.com/methods/output_12_0_PevPHfi.png",
+        "headline": "Random Resized Crop Explained"
+    }
+}</script>
+
+  
+  <meta name="theme-color" content="#fff"/>
+  <link rel="manifest" href="https://production-assets.paperswithcode.com/static/manifest.web.json">
+
+  
+  
+</head>
+<body>
+
+
+
+
+    
+
+<nav class="navbar navbar-expand-lg navbar-light header">
+  <a class="navbar-brand" href="/">
+    
+      <span class=" icon-wrapper" data-name="pwc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M88 128h48v256H88zm144 0h48v256h-48zm-72 16h48v224h-48zm144 0h48v224h-48zm72-16h48v256h-48z"/><path d="M104 104V56H16v400h88v-48H64V104zm304-48v48h40v304h-40v48h88V56z"/></svg></span>
+    
+  </a>
+
+  <div class="navbar-mobile-twitter d-lg-none">
+    <a rel="noreferrer" href="https://twitter.com/paperswithcode">
+      <span class=" icon-wrapper icon-fa icon-fa-brands" data-name="twitter"><svg viewBox="0 0 512.001 515.25" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 152.016c.326 4.548.326 9.097.326 13.645 0 138.72-105.583 298.558-298.559 298.558C101.685 464.22 46.457 447 0 417.114c8.447.973 16.568 1.298 25.34 1.298 49.054 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.113-72.772 6.499.975 12.996 1.624 19.819 1.624 9.42 0 18.843-1.3 27.613-3.573-48.08-9.747-84.142-51.98-84.142-102.984v-1.3c13.968 7.798 30.213 12.67 47.43 13.32-28.263-18.843-46.78-51.006-46.78-87.391 0-19.492 5.196-37.36 14.294-52.954 51.654 63.674 129.3 105.258 216.364 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.827 46.782-104.934 104.934-104.934 30.214 0 57.502 12.67 76.671 33.136 23.715-4.548 46.455-13.319 66.599-25.34-7.798 24.367-24.366 44.834-46.132 57.828 21.117-2.274 41.584-8.122 60.426-16.244-14.292 20.791-32.161 39.309-52.628 54.253z"/></svg></span>
+    </a>
+  </div>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-bs-toggle="collapse"
+    data-target="#top-menu"
+    data-bs-target="#top-menu"
+    aria-controls="top-menu"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="top-menu">
+    <ul class="navbar-nav mr-auto navbar-nav__left light-header">
+      <li class="nav-item header-search">
+        <form action="/search" method="get" id="id_global_search_form" autocomplete="off">
+          <input type="text" name="q_meta" style="display:none" id="q_meta" />
+          <input type="hidden" name="q_type" id="q_type" />
+          <input id="id_global_search_input" autocomplete="off" value="" name='q' class="global-search" type="search" placeholder='Search'/>
+          <button type="submit" class="icon"><span class=" icon-wrapper icon-fa icon-fa-light" data-name="search"><svg viewBox="0 0 512.025 520.146" xmlns="http://www.w3.org/2000/svg"><path d="M508.5 482.6c4.7 4.7 4.7 12.3 0 17l-9.9 9.9c-4.7 4.7-12.3 4.7-17 0l-129-129c-2.2-2.3-3.5-5.3-3.5-8.5v-10.2C312 396 262.5 417 208 417 93.1 417 0 323.9 0 209S93.1 1 208 1s208 93.1 208 208c0 54.5-21 104-55.3 141.1H371c3.2 0 6.2 1.2 8.5 3.5zM208 385c97.3 0 176-78.7 176-176S305.3 33 208 33 32 111.7 32 209s78.7 176 176 176z"/></svg></span></button>
+        </form>
+      </li>
+
+      
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/sota">
+            Browse State-of-the-Art
+          </a>
+        </li>
+
+        
+          <li class="nav-item">
+            <a class="nav-link" href="/datasets"> Datasets </a>
+          </li>
+        
+
+        
+            <li class="nav-item">
+              <a class="nav-link" href="/methods">Methods</a>
+            </li>
+        
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            id="navbarDropdownRepro"
+            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            More
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownRepro">
+        
+            <a class="dropdown-item" href="/newsletter">Newsletter</a>
+            <a class="dropdown-item" href="/rc2022">RC2022</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/about">About</a>
+            <a class="dropdown-item" href="/trends">Trends</a>
+              
+                  <a class="dropdown-item" href="https://portal.paperswithcode.com/">
+                      Portals
+                  </a>
+              
+              
+                  <a class="dropdown-item" href="/libraries"> Libraries </a>
+              
+          </div>
+        </li>
+
+          
+
+
+
+      
+    </ul>
+
+    <ul class="navbar-nav ml-auto navbar-nav__right navbar-subscribe justify-content-center align-items-center">
+      
+
+      <li class="nav-item">
+        <a class="nav-link" rel="noreferrer" href="https://twitter.com/paperswithcode">
+          <span class="nav-link-social-icon icon-wrapper icon-fa icon-fa-brands" data-name="twitter"><svg viewBox="0 0 512.001 515.25" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 152.016c.326 4.548.326 9.097.326 13.645 0 138.72-105.583 298.558-298.559 298.558C101.685 464.22 46.457 447 0 417.114c8.447.973 16.568 1.298 25.34 1.298 49.054 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.113-72.772 6.499.975 12.996 1.624 19.819 1.624 9.42 0 18.843-1.3 27.613-3.573-48.08-9.747-84.142-51.98-84.142-102.984v-1.3c13.968 7.798 30.213 12.67 47.43 13.32-28.263-18.843-46.78-51.006-46.78-87.391 0-19.492 5.196-37.36 14.294-52.954 51.654 63.674 129.3 105.258 216.364 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.827 46.782-104.934 104.934-104.934 30.214 0 57.502 12.67 76.671 33.136 23.715-4.548 46.455-13.319 66.599-25.34-7.798 24.367-24.366 44.834-46.132 57.828 21.117-2.274 41.584-8.122 60.426-16.244-14.292 20.791-32.161 39.309-52.628 54.253z"/></svg></span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" rel="noreferrer" href="https://join.slack.com/t/paperswithcode/shared_invite/zt-1pxk52q7k-pqvLv4rzR2eVQaGxpUHZMQ">
+          <span class="nav-link-social-icon nav-link-social-icon-slack icon-wrapper" data-name="slack"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 270"><path d="M99.4 151.2c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9v-32.3z" fill="#e01e5a"/><path d="M118.8 99.4c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v12.9h-12.9zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H86.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3z" fill="#36c5f0"/><path d="M170.6 118.8c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9h-12.9v-12.9zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V86.5c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9v32.3z" fill="#2eb67d"/><path d="M151.2 170.6c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9v-12.9h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9h-32.3z" fill="#ecb22e"/></svg></span>
+        </a>
+      </li>
+
+      
+        <li class="nav-item">
+          <a id="signin-link" class="nav-link" href="/accounts/login?next=/method/randomresizedcrop">Sign In</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+
+
+
+
+<!-- Page modals -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="emailModalLabel">Subscribe to the PwC Newsletter</h3>
+        <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="post">
+        <div class="modal-body">
+          <div class="modal-body-info-text">
+            Stay informed on the latest trending ML papers with code, research developments, libraries, methods, and datasets.<br/><br/>
+            <a href="/newsletter">Read previous issues</a>
+          </div>
+
+          <input type="hidden" name="csrfmiddlewaretoken" value="a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc">
+          <input placeholder="Enter your email" type="email" class="form-control pwc-email" name="address" id="id_address" max_length="100" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Join the community</h5>
+        <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="login-modal-message">
+        You need to <a href="/accounts/login?next=/method/randomresizedcrop">log in</a> to edit.<br/>
+        You can <a href="/accounts/register?next=/method/randomresizedcrop">create a new account</a> if you don't have one.<br/><br/>
+        Or, discuss a change on <a href="https://join.slack.com/t/paperswithcode/shared_invite/zt-1pxk52q7k-pqvLv4rzR2eVQaGxpUHZMQ"><i class="fab fa-slack"></i> Slack</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Edit Method -->
+    <div class="modal fade" id="editMethod" role="dialog"
+         aria-labelledby="editMethodLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMethodLabel">Edit Method</h5>
+                    <button type="button" class="close btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc">
+                        
+
+
+    
+    <div id="div_id_name" class="form-group">
+        
+            <label for="id_name" class=" requiredField">
+                Method Name:<span class="asteriskField">*</span>
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <input type="text" name="name" value="Random Resized Crop" maxlength="200" class="textinput textInput form-control" required id="id_name">
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        
+
+
+    
+    <div id="div_id_full_name" class="form-group">
+        
+            <label for="id_full_name" class=" requiredField">
+                Method Full Name:<span class="asteriskField">*</span>
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <input type="text" name="full_name" value="Random Resized Crop" maxlength="200" class="textinput textInput form-control" required id="id_full_name">
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        
+
+
+    
+    <div id="div_id_description" class="form-group">
+        
+            <label for="id_description" class="">
+                Description with Markdown (optional):
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <textarea name="description" cols="40" rows="12" class="textarea form-control" id="id_description">
+**RandomResizedCrop** is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.
+
+Image Credit: [Apache MXNet](https://mxnet.apache.org/versions/1.5.0/tutorials/gluon/data_augmentation.html)</textarea>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        
+
+
+    
+    <div id="div_id_code_snippet_url" class="form-group">
+        
+            <label for="id_code_snippet_url" class="">
+                Code Snippet URL (optional):
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <input type="text" name="code_snippet_url" maxlength="200" class="textinput textInput form-control" id="id_code_snippet_url">
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        
+
+
+    
+    <div id="div_id_image" class="form-group">
+        
+            <label for="id_image" class="">
+                Image
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        Currently: <a href="https://production-media.paperswithcode.com/methods/output_12_0_PevPHfi.png">methods/output_12_0_PevPHfi.png</a>
+<input type="checkbox" name="image-clear" id="image-clear_id">
+<label for="image-clear_id">Clear</label><br>
+Change:
+<input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file" id="id_image">
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Collection -->
+    <div class="modal fade" id="addCollection" role="dialog"
+         aria-labelledby="addCollectionLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCollectionLabel">Add A Method Collection</h5>
+                    <button type="button" class="close btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                        <div class="current-tasks-title">Attached collections:</div>
+                    
+                    
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="/methods/category/image-data-augmentation">
+                                    <span class="badge badge-primary">IMAGE DATA AUGMENTATION</span>
+                                </a>
+                            </li>
+                        </ul>
+                    
+                    <form action="" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc">
+                        
+
+
+    
+    <div id="div_id_collection" class="form-group">
+        
+            <label for="id_collection" class="">
+                Add:
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <select name="collection" class="modelselect2 form-control" id="id_collection" data-autocomplete-light-language="en" data-autocomplete-light-url="/method-collection-autocomplete/" data-autocomplete-light-function="select2">
+  <option value="" selected>---------</option>
+
+</select>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+
+                        <div class="modal-help-text">
+                            Not in the list?<br/>
+                            <a href="#" id="show-new-collection-form-hidden">
+                            <span class=" icon-wrapper icon-ion" data-name="add"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288m144-144H112"/></svg></span>
+                                Create a new collection</a>.
+                        </div>
+
+                        <div class="new-collection-form-hidden">
+                            
+
+
+    
+    <div id="div_id_new_collection_name" class="form-group">
+        
+            <label for="id_new_collection_name" class="">
+                New collection name:
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <input type="text" name="new_collection_name" maxlength="200" class="textinput textInput form-control" id="id_new_collection_name">
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                            
+
+
+    
+    <div id="div_id_new_collection_area" class="form-group">
+        
+            <label for="id_new_collection_area" class="">
+                Top-level area:
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <select name="new_collection_area" class="select form-control" id="id_new_collection_area">
+  <option value="" selected>---------</option>
+
+  <option value="7">Audio</option>
+
+  <option value="1">Computer Vision</option>
+
+  <option value="3">General</option>
+
+  <option value="4">Graphs</option>
+
+  <option value="2">Natural Language Processing</option>
+
+  <option value="5">Reinforcement Learning</option>
+
+  <option value="6">Sequential</option>
+
+</select>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                            
+
+
+    
+    <div id="div_id_new_collection_parent" class="form-group">
+        
+            <label for="id_new_collection_parent" class="">
+                Parent collection (if any):
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <select name="new_collection_parent" class="modelselect2 form-control" id="id_new_collection_parent" data-autocomplete-light-language="en" data-autocomplete-light-url="/method-collection-autocomplete/" data-autocomplete-light-function="select2">
+  <option value="" selected>---------</option>
+
+</select>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                            
+
+
+    
+    <div id="div_id_new_collection_desc" class="form-group">
+        
+            <label for="id_new_collection_desc" class="">
+                Description (optional):
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <textarea name="new_collection_desc" cols="40" rows="3" class="textarea form-control" id="id_new_collection_desc">
+</textarea>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Collection -->
+    <div class="modal fade" id="removeCollection" tabindex="-1" role="dialog"
+         aria-labelledby="removeCollectionLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeCollectionLabel">Remove a
+                        collection</h5>
+                    <button type="button" class="close btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        
+                            <ul class="list-unstyled">
+                                <form action="" method="post">
+                                    <li>
+                                        <a href="/methods/category/image-data-augmentation">
+                                            <span class="badge badge-primary">IMAGE DATA AUGMENTATION</span>
+                                        </a>
+                                        <input type="hidden" name="csrfmiddlewaretoken" value="a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc">
+                                        <input type="hidden"
+                                               name="remove_collection_pk"
+                                               value="49">
+                                        <button type="submit"
+                                                class="btn btn-danger"
+                                                style="width:2.5em">-
+                                        </button>
+                                    </li>
+                                </form>
+                            </ul>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Component -->
+    <div class="modal fade" id="addComponent" role="dialog"
+         aria-labelledby="addComponentLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addComponentLabel">Add A Method Component</h5>
+                    <button type="button" class="close btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    
+                    <form action="" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="a9xMJLDgsmmbyjQyuTMkUob0MpAsNt54XpvW91GhATrkdhLo3KR5HR0cjxq3zFyc">
+                        
+
+
+    
+    <div id="div_id_dependency" class="form-group">
+        
+            <label for="id_dependency" class=" requiredField">
+                Add:<span class="asteriskField">*</span>
+            </label>
+        
+
+        
+
+        
+
+        
+            
+                <div class="">
+                    
+                        <select name="dependency" class="modelselect2 form-control" required id="id_dependency" data-autocomplete-light-language="en" data-autocomplete-light-url="/method-autocomplete/" data-autocomplete-light-function="select2">
+  <option value="" selected>---------</option>
+
+</select>
+                    
+                    
+
+
+    
+
+
+
+
+    
+
+
+
+                </div>
+            
+        
+    </div>
+    
+
+
+                        
+
+
+    
+        <div class="form-group">
+        
+    
+    <div id="div_id_optional" class="form-check">
+        
+
+        
+
+        
+
+        
+            
+                
+                    <input type="checkbox" name="optional" class="checkboxinput form-check-input" id="id_optional">
+                
+                <label for="id_optional" class="form-check-label">
+                    Tick if this dependency is optional
+                </label>
+                
+
+
+    
+
+
+
+
+    
+
+
+
+            
+        
+    </div>
+    
+        
+        </div>
+    
+
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Component -->
+    <div class="modal fade" id="removeComponent" tabindex="-1" role="dialog"
+         aria-labelledby="removeComponentLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeCompoenntnLabel">Remove a
+                        method component</h5>
+                    <button type="button" class="close btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<div class="container content content-buffer ">
+
+  
+    <div class="mobile-width">
+
+    <div class="method-header">
+    
+        <a href="/methods/category/image-data-augmentation">
+            <span class="badge badge-primary">
+                
+                    <img src="https://production-media.paperswithcode.com/thumbnails/method/methodcollection-0000000049-11977eae.jpg">
+                
+            <span>Image Data Augmentation</span>
+            </span>
+        </a>
+    
+
+    <div class="method-title">
+        <div class="row">
+
+            <div class="col-md-11">
+                <h1>Random Resized Crop</h1>
+
+                
+            </div>
+        <div class="col-md-1">
+            <div class="float-right"> 
+                <div class="dropdown edit-button">
+                    <a data-bs-toggle="modal"
+                       data-bs-target="#loginModal">
+                        <span class="badge badge-method-edit"
+                              style="padding-top:10px;"><span class=" icon-wrapper icon-fa icon-fa-solid" data-name="edit"><svg viewBox="0 0 576 514.999" xmlns="http://www.w3.org/2000/svg"><path d="M402.6 85.198l90.2 90.2c3.8 3.8 3.8 10 0 13.8l-218.399 218.4-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8 218.4-218.4c3.799-3.8 10-3.8 13.799 0zm162-22.9c15.2 15.2 15.2 39.9 0 55.2l-35.4 35.4c-3.8 3.8-10 3.8-13.8 0l-90.2-90.2c-3.8-3.8-3.8-10 0-13.8l35.4-35.4c15.3-15.2 40-15.2 55.2 0zM384 348.198c0-3.2 1.3-6.2 3.5-8.5l40-40c7.6-7.5 20.5-2.2 20.5 8.5v157.8c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48v-352c0-26.5 21.5-48 48-48h285.8c10.7 0 16.1 12.9 8.5 20.5l-40 40c-2.3 2.2-5.3 3.5-8.5 3.5H64v320h320v-101.8z"/></svg></span> Edit</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <div class="method-content" style="margin-top: 2rem;">
+
+        <div class="row">
+            <div class="col-md-8 description">
+                <p><strong>RandomResizedCrop</strong> is a type of image data augmentation where a crop of random size of the original size and a random aspect ratio of the original aspect ratio is made. This crop is finally resized to given size.</p>
+<p>Image Credit: <a href="https://mxnet.apache.org/versions/1.5.0/tutorials/gluon/data_augmentation.html">Apache MXNet</a></p>
+                
+            </div>
+            <div class="col-md-4">
+                <a href="#" id="pop">
+                    
+                      <a href="https://production-media.paperswithcode.com/methods/output_12_0_PevPHfi.png" data-lightbox="imageresource">
+                        <img id="imageresource" width=100% src="https://production-media.paperswithcode.com/methods/output_12_0_PevPHfi.png">
+                      </a>
+                      
+                </a>
+                <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="imagePreview" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-body text-center">
+                        <img class="method-image" src="" id="imagepreview" style="max-width: 750px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="papers">
+            <h4 style="margin-bottom: 0.5rem">Papers</h4>
+            <hr>
+
+            
+
+<div class="sota-table-preview papers-datatable-component">
+  <table style="width: 100% !important;" id="datatable-papers" class="table-striped table-responsive">
+      <thead style="width: 100% !important;">
+          <tr>
+              <th style="text-left"><span>Paper</span></th>
+              <th class="text-center"><span>Code</span></th>
+              <th class="text-center"><span>Results</span></th>
+              <th class="text-right"><span>Date</span></th>
+              <th class="text-center"><span>Stars</span></th>
+          </tr>
+      </thead>
+  </table>
+</div>
+
+<script>
+  
+      const DATATABLE_PAPERS_FILTER_NAME = 'papermethod__method_id';
+      const DATATABLE_PAPERS_FILTER_VALUE = '573';
+    
+</script>
+
+        </div>
+
+        
+        <div id="tasks">
+            <h4 style="margin-bottom: 0.5rem">Tasks</h4>
+            <hr>
+            <div class="row">
+                    <div class="col-lg-6">
+                        <figure class="highcharts-figure">
+                            <div id="usage-container"></div>
+                        </figure>
+                    </div>
+                    <div class="col-lg-6 task-methods">
+                        <table>
+                            <tr>
+                                <th>Task</th>
+                                <th class="text-right">Papers</th>
+                                <th class="text-right">Share</th>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: #2f7ed8"></span>
+                                    
+                                        <a href="/task/image-classification">Image Classification</a>
+                                    
+                                </td>
+                                <td class="text-right">66</td>
+                                <td class="text-right">15.46%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: #0d233a"></span>
+                                    
+                                        <a href="/task/self-supervised-learning">Self-Supervised Learning</a>
+                                    
+                                </td>
+                                <td class="text-right">65</td>
+                                <td class="text-right">15.22%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: #8bbc21"></span>
+                                    
+                                        <a href="/task/object-detection">Object Detection</a>
+                                    
+                                </td>
+                                <td class="text-right">37</td>
+                                <td class="text-right">8.67%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: #f28f43"></span>
+                                    
+                                        <a href="/task/classification">General Classification</a>
+                                    
+                                </td>
+                                <td class="text-right">34</td>
+                                <td class="text-right">7.96%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: rgb(128, 133, 233)"></span>
+                                    
+                                        <a href="/task/semantic-segmentation">Semantic Segmentation</a>
+                                    
+                                </td>
+                                <td class="text-right">18</td>
+                                <td class="text-right">4.22%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: rgb(241, 92, 128)"></span>
+                                    
+                                        <a href="/task/classification-1">Classification</a>
+                                    
+                                </td>
+                                <td class="text-right">10</td>
+                                <td class="text-right">2.34%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: rgb(228, 211, 84)"></span>
+                                    
+                                        <a href="/task/instance-segmentation">Instance Segmentation</a>
+                                    
+                                </td>
+                                <td class="text-right">9</td>
+                                <td class="text-right">2.11%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: rgb(43, 144, 143)"></span>
+                                    
+                                        <a href="/task/self-supervised-image-classification">Self-Supervised Image Classification</a>
+                                    
+                                </td>
+                                <td class="text-right">9</td>
+                                <td class="text-right">2.11%</td>
+                            </tr>
+                            
+                            <tr>
+                                <td><span class="dot" style="background-color: rgb(255, 116, 116)"></span>
+                                    
+                                        <a href="/task/object-recognition">Object Recognition</a>
+                                    
+                                </td>
+                                <td class="text-right">7</td>
+                                <td class="text-right">1.64%</td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+
+        </div>
+        
+
+
+        <div id="trends">
+            <h4 style="margin-bottom: 0.5rem">Usage Over Time</h4>
+            <hr>
+            <figure style="margin-top: 2.5rem" class="highcharts-figure">
+                <div id="container"></div>
+            </figure>
+            <span class="experimental-note hidden-element"><span class=" icon-wrapper icon-ion" data-name="flask-outline"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M176 48h160M118 304h276M208 48v93.48a64.09 64.09 0 0 1-9.88 34.18L73.21 373.49C48.4 412.78 76.63 464 123.08 464h265.84c46.45 0 74.68-51.22 49.87-90.51L313.87 175.66a64.09 64.09 0 0 1-9.87-34.18V48"/></svg></span> This feature is experimental;
+                we are continuously improving our matching algorithm.</span>
+        </div>
+
+            <div id="components">
+            <h4 style="margin-bottom: 0.5rem">Components</h4>
+            <hr>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Type</th>
+                        <th class="hidden-element">
+                            <div class="float-right">
+                                <div class="dropdown edit-button">
+                                    <button class="dropdown-toggle badge badge-edit" type="button" id="compEditMenu"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class=" icon-wrapper icon-fa icon-fa-solid" data-name="edit"><svg viewBox="0 0 576 514.999" xmlns="http://www.w3.org/2000/svg"><path d="M402.6 85.198l90.2 90.2c3.8 3.8 3.8 10 0 13.8l-218.399 218.4-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8 218.4-218.4c3.799-3.8 10-3.8 13.799 0zm162-22.9c15.2 15.2 15.2 39.9 0 55.2l-35.4 35.4c-3.8 3.8-10 3.8-13.8 0l-90.2-90.2c-3.8-3.8-3.8-10 0-13.8l35.4-35.4c15.3-15.2 40-15.2 55.2 0zM384 348.198c0-3.2 1.3-6.2 3.5-8.5l40-40c7.6-7.5 20.5-2.2 20.5 8.5v157.8c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48v-352c0-26.5 21.5-48 48-48h285.8c10.7 0 16.1 12.9 8.5 20.5l-40 40c-2.3 2.2-5.3 3.5-8.5 3.5H64v320h320v-101.8z"/></svg></span>
+                                        Edit
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="compEditMenu"
+                                         x-placement="bottom-end"
+                                         style="position: absolute; transform: translate3d(55px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item"
+                                           href="#loginModal"
+                                           data-bs-toggle="modal">
+                                            <span class=" icon-wrapper icon-ion" data-name="add"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288m144-144H112"/></svg></span>
+                                            Add</a>
+                                        <a class="dropdown-item"
+                                           href="#loginModal"
+                                           data-bs-toggle="modal">
+                                            <span class=" icon-wrapper icon-ion" data-name="remove"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 256H112"/></svg></span>
+                                            Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    
+                        <tr>
+                            <td>
+                                <span style="font-weight: bold">🤖 No Components Found</span>
+                            </td>
+                        <td>You can <a data-bs-toggle="modal" href="#loginModal">add them</a> if they exist; e.g. <a href="/method/mask-r-cnn">Mask R-CNN</a> uses <a href="/method/roi-align">RoIAlign</a></td>
+                        <td class="hidden-element"></td>
+                        </tr>
+                    
+                    
+                </table>
+            </div>
+
+
+
+
+        <div class="collections">
+            <h4>
+                Categories        <div class="float-right">
+
+                    <div class="dropdown edit-button">
+                        <button class="dropdown-toggle badge badge-edit" type="button" id="evalEditMenu"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class=" icon-wrapper icon-fa icon-fa-solid" data-name="edit"><svg viewBox="0 0 576 514.999" xmlns="http://www.w3.org/2000/svg"><path d="M402.6 85.198l90.2 90.2c3.8 3.8 3.8 10 0 13.8l-218.399 218.4-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8 218.4-218.4c3.799-3.8 10-3.8 13.799 0zm162-22.9c15.2 15.2 15.2 39.9 0 55.2l-35.4 35.4c-3.8 3.8-10 3.8-13.8 0l-90.2-90.2c-3.8-3.8-3.8-10 0-13.8l35.4-35.4c15.3-15.2 40-15.2 55.2 0zM384 348.198c0-3.2 1.3-6.2 3.5-8.5l40-40c7.6-7.5 20.5-2.2 20.5 8.5v157.8c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48v-352c0-26.5 21.5-48 48-48h285.8c10.7 0 16.1 12.9 8.5 20.5l-40 40c-2.3 2.2-5.3 3.5-8.5 3.5H64v320h320v-101.8z"/></svg></span>
+                            Edit
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="evalEditMenu"
+                             x-placement="bottom-end"
+                             style="position: absolute; transform: translate3d(55px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a class="dropdown-item"
+                               href="#loginModal"
+                               data-bs-toggle="modal">
+                                <span class=" icon-wrapper icon-ion" data-name="add"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288m144-144H112"/></svg></span>
+                                Add</a>
+                            <a class="dropdown-item"
+                               href="#loginModal"
+                               data-bs-toggle="modal">
+                                <span class=" icon-wrapper icon-ion" data-name="remove"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 256H112"/></svg></span>
+                                Remove</a>
+                        </div>
+                    </div>
+
+                </div><hr>
+
+
+
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/methods/category/image-data-augmentation">
+                                <span class="badge badge-primary">
+                                    
+                                        <img src="https://production-media.paperswithcode.com/thumbnails/method/methodcollection-0000000049-11977eae.jpg">
+                                    
+                                    <span>Image Data Augmentation</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+    <script id="task_data" type="application/json">[{"name": "Image Classification", "slug": "image-classification", "papers": 66, "y": 15.456674473067917, "dot_color": "#2f7ed8"}, {"name": "Self-Supervised Learning", "slug": "self-supervised-learning", "papers": 65, "y": 15.22248243559719, "dot_color": "#0d233a"}, {"name": "Object Detection", "slug": "object-detection", "papers": 37, "y": 8.665105386416862, "dot_color": "#8bbc21"}, {"name": "General Classification", "slug": "classification", "papers": 34, "y": 7.962529274004685, "dot_color": "#f28f43"}, {"name": "Semantic Segmentation", "slug": "semantic-segmentation", "papers": 18, "y": 4.215456674473068, "dot_color": "rgb(128, 133, 233)"}, {"name": "Classification", "slug": "classification-1", "papers": 10, "y": 2.3419203747072603, "dot_color": "rgb(241, 92, 128)"}, {"name": "Instance Segmentation", "slug": "instance-segmentation", "papers": 9, "y": 2.107728337236534, "dot_color": "rgb(228, 211, 84)"}, {"name": "Self-Supervised Image Classification", "slug": "self-supervised-image-classification", "papers": 9, "y": 2.107728337236534, "dot_color": "rgb(43, 144, 143)"}, {"name": "Object Recognition", "slug": "object-recognition", "papers": 7, "y": 1.639344262295082, "dot_color": "rgb(255, 116, 116)"}, {"name": "Other", "y": 40.28103044496497, "dot_color": "rgb(170, 255, 250)"}]</script>
+    <script id="time_series_data" type="application/json">[{"name": "Random Resized Crop", "data": [{"time": "2016-03-31 00:00:00", "prop": 4.966969651815427e-05}, {"time": "2016-06-30 00:00:00", "prop": 8.786574114752658e-05}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 0.00016957775139901646}, {"time": "2017-03-31 00:00:00", "prop": 4.569966182250251e-05}, {"time": "2017-06-30 00:00:00", "prop": 4.254957024934048e-05}, {"time": "2017-09-30 00:00:00", "prop": 0.00011821262510836157}, {"time": "2017-12-31 00:00:00", "prop": 3.867723844517501e-05}, {"time": "2018-03-31 00:00:00", "prop": 3.9384033712732856e-05}, {"time": "2018-06-30 00:00:00", "prop": 3.4207915711695686e-05}, {"time": "2018-09-30 00:00:00", "prop": 0.00013832693571255662}, {"time": "2018-12-31 00:00:00", "prop": 0.00012954626420960585}, {"time": "2019-03-31 00:00:00", "prop": 0.00010191602119853241}, {"time": "2019-06-30 00:00:00", "prop": 0.0003526818515797208}, {"time": "2019-09-30 00:00:00", "prop": 8.481764206955047e-05}, {"time": "2019-12-31 00:00:00", "prop": 0.0001631321370309951}, {"time": "2020-03-31 00:00:00", "prop": 0.00019235525267236405}, {"time": "2020-06-30 00:00:00", "prop": 8.785416209092906e-05}, {"time": "2020-09-30 00:00:00", "prop": 0.00012924906294429367}, {"time": "2020-12-31 00:00:00", "prop": 0.0002904249139895447}, {"time": "2021-03-31 00:00:00", "prop": 0.0002560294945977777}, {"time": "2021-06-30 00:00:00", "prop": 0.0001448166001199909}, {"time": "2021-09-30 00:00:00", "prop": 0.00037953064709975333}, {"time": "2021-12-31 00:00:00", "prop": 0.0003393213572854291}, {"time": "2022-03-31 00:00:00", "prop": 0.00039198606271777003}, {"time": "2022-06-30 00:00:00", "prop": 0.0001461133839859731}, {"time": "2022-09-30 00:00:00", "prop": 0.00021590810950859315}, {"time": "2022-12-31 00:00:00", "prop": 0.00037524193229845557}]}, {"name": "Mixup", "data": [{"time": "2016-03-31 00:00:00", "prop": 0.0}, {"time": "2016-06-30 00:00:00", "prop": 0.0}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 0.0}, {"time": "2017-03-31 00:00:00", "prop": 0.0}, {"time": "2017-06-30 00:00:00", "prop": 0.0}, {"time": "2017-09-30 00:00:00", "prop": 0.0}, {"time": "2017-12-31 00:00:00", "prop": 3.867723844517501e-05}, {"time": "2018-03-31 00:00:00", "prop": 3.9384033712732856e-05}, {"time": "2018-06-30 00:00:00", "prop": 6.841583142339137e-05}, {"time": "2018-09-30 00:00:00", "prop": 6.916346785627831e-05}, {"time": "2018-12-31 00:00:00", "prop": 6.477313210480292e-05}, {"time": "2019-03-31 00:00:00", "prop": 6.794401413235494e-05}, {"time": "2019-06-30 00:00:00", "prop": 0.0003820720058780309}, {"time": "2019-09-30 00:00:00", "prop": 0.0002827254735651682}, {"time": "2019-12-31 00:00:00", "prop": 0.00019032082653616095}, {"time": "2020-03-31 00:00:00", "prop": 0.00043966914896540355}, {"time": "2020-06-30 00:00:00", "prop": 0.00028552602679551945}, {"time": "2020-09-30 00:00:00", "prop": 0.0003231226573607341}, {"time": "2020-12-31 00:00:00", "prop": 0.0005138286939815022}, {"time": "2021-03-31 00:00:00", "prop": 0.0009473091300117774}, {"time": "2021-06-30 00:00:00", "prop": 0.0005172021432856817}, {"time": "2021-09-30 00:00:00", "prop": 0.0006536361144495751}, {"time": "2021-12-31 00:00:00", "prop": 0.0005788423153692615}, {"time": "2022-03-31 00:00:00", "prop": 0.00045731707317073173}, {"time": "2022-06-30 00:00:00", "prop": 0.000855806963346414}, {"time": "2022-09-30 00:00:00", "prop": 0.0006261335175749201}, {"time": "2022-12-31 00:00:00", "prop": 0.0008887308922858159}]}, {"name": "GPS", "data": [{"time": "2016-03-31 00:00:00", "prop": 0.0}, {"time": "2016-06-30 00:00:00", "prop": 0.0}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 0.0}, {"time": "2017-03-31 00:00:00", "prop": 0.0}, {"time": "2017-06-30 00:00:00", "prop": 0.0}, {"time": "2017-09-30 00:00:00", "prop": 0.0}, {"time": "2017-12-31 00:00:00", "prop": 0.0}, {"time": "2018-03-31 00:00:00", "prop": 0.0}, {"time": "2018-06-30 00:00:00", "prop": 0.0}, {"time": "2018-09-30 00:00:00", "prop": 0.0}, {"time": "2018-12-31 00:00:00", "prop": 0.0}, {"time": "2019-03-31 00:00:00", "prop": 0.0}, {"time": "2019-06-30 00:00:00", "prop": 0.0}, {"time": "2019-09-30 00:00:00", "prop": 0.0}, {"time": "2019-12-31 00:00:00", "prop": 0.0}, {"time": "2020-03-31 00:00:00", "prop": 2.7479321810337722e-05}, {"time": "2020-06-30 00:00:00", "prop": 0.0}, {"time": "2020-09-30 00:00:00", "prop": 0.00036620567834216535}, {"time": "2020-12-31 00:00:00", "prop": 0.0009159554979670256}, {"time": "2021-03-31 00:00:00", "prop": 0.0008705002816324441}, {"time": "2021-06-30 00:00:00", "prop": 0.0006206425719428181}, {"time": "2021-09-30 00:00:00", "prop": 0.0008644864739494381}, {"time": "2021-12-31 00:00:00", "prop": 0.0006786427145708582}, {"time": "2022-03-31 00:00:00", "prop": 0.0006750871080139373}, {"time": "2022-06-30 00:00:00", "prop": 0.000855806963346414}, {"time": "2022-09-30 00:00:00", "prop": 0.0006045427066240608}, {"time": "2022-12-31 00:00:00", "prop": 0.0008097325907492988}]}, {"name": "ColorJitter", "data": [{"time": "2016-03-31 00:00:00", "prop": 0.0}, {"time": "2016-06-30 00:00:00", "prop": 0.0}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 8.478887569950823e-05}, {"time": "2017-03-31 00:00:00", "prop": 0.0}, {"time": "2017-06-30 00:00:00", "prop": 0.0}, {"time": "2017-09-30 00:00:00", "prop": 0.0}, {"time": "2017-12-31 00:00:00", "prop": 0.0}, {"time": "2018-03-31 00:00:00", "prop": 0.0}, {"time": "2018-06-30 00:00:00", "prop": 0.0}, {"time": "2018-09-30 00:00:00", "prop": 3.4581733928139156e-05}, {"time": "2018-12-31 00:00:00", "prop": 0.0}, {"time": "2019-03-31 00:00:00", "prop": 6.794401413235494e-05}, {"time": "2019-06-30 00:00:00", "prop": 8.81704628949302e-05}, {"time": "2019-09-30 00:00:00", "prop": 5.654509471303364e-05}, {"time": "2019-12-31 00:00:00", "prop": 5.43773790103317e-05}, {"time": "2020-03-31 00:00:00", "prop": 0.0001373966090516886}, {"time": "2020-06-30 00:00:00", "prop": 0.00010981770261366133}, {"time": "2020-09-30 00:00:00", "prop": 0.00012924906294429367}, {"time": "2020-12-31 00:00:00", "prop": 0.000268084535990349}, {"time": "2021-03-31 00:00:00", "prop": 0.0002560294945977777}, {"time": "2021-06-30 00:00:00", "prop": 0.0001448166001199909}, {"time": "2021-09-30 00:00:00", "prop": 0.00037953064709975333}, {"time": "2021-12-31 00:00:00", "prop": 0.0003393213572854291}, {"time": "2022-03-31 00:00:00", "prop": 0.00039198606271777003}, {"time": "2022-06-30 00:00:00", "prop": 0.0001461133839859731}, {"time": "2022-09-30 00:00:00", "prop": 0.00021590810950859315}, {"time": "2022-12-31 00:00:00", "prop": 0.00035549235691432633}]}, {"name": "Random Gaussian Blur", "data": [{"time": "2016-03-31 00:00:00", "prop": 0.0}, {"time": "2016-06-30 00:00:00", "prop": 0.0}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 4.2394437849754115e-05}, {"time": "2017-03-31 00:00:00", "prop": 0.0}, {"time": "2017-06-30 00:00:00", "prop": 0.0}, {"time": "2017-09-30 00:00:00", "prop": 0.0}, {"time": "2017-12-31 00:00:00", "prop": 0.0}, {"time": "2018-03-31 00:00:00", "prop": 0.0}, {"time": "2018-06-30 00:00:00", "prop": 0.0}, {"time": "2018-09-30 00:00:00", "prop": 3.4581733928139156e-05}, {"time": "2018-12-31 00:00:00", "prop": 0.0}, {"time": "2019-03-31 00:00:00", "prop": 0.0}, {"time": "2019-06-30 00:00:00", "prop": 0.0}, {"time": "2019-09-30 00:00:00", "prop": 0.0}, {"time": "2019-12-31 00:00:00", "prop": 0.0}, {"time": "2020-03-31 00:00:00", "prop": 8.243796543101317e-05}, {"time": "2020-06-30 00:00:00", "prop": 6.58906215681968e-05}, {"time": "2020-09-30 00:00:00", "prop": 0.00012924906294429367}, {"time": "2020-12-31 00:00:00", "prop": 0.0003797864259863277}, {"time": "2021-03-31 00:00:00", "prop": 0.0002816324440575554}, {"time": "2021-06-30 00:00:00", "prop": 0.00016550468585141816}, {"time": "2021-09-30 00:00:00", "prop": 0.0004217007189997259}, {"time": "2021-12-31 00:00:00", "prop": 0.0003992015968063872}, {"time": "2022-03-31 00:00:00", "prop": 0.00045731707317073173}, {"time": "2022-06-30 00:00:00", "prop": 0.0001461133839859731}, {"time": "2022-09-30 00:00:00", "prop": 0.00023749892045945247}, {"time": "2022-12-31 00:00:00", "prop": 0.00035549235691432633}]}, {"name": "CutMix", "data": [{"time": "2016-03-31 00:00:00", "prop": 0.0}, {"time": "2016-06-30 00:00:00", "prop": 0.0}, {"time": "2016-09-30 00:00:00", "prop": 0.0}, {"time": "2016-12-31 00:00:00", "prop": 0.0}, {"time": "2017-03-31 00:00:00", "prop": 0.0}, {"time": "2017-06-30 00:00:00", "prop": 0.0}, {"time": "2017-09-30 00:00:00", "prop": 0.0}, {"time": "2017-12-31 00:00:00", "prop": 0.0}, {"time": "2018-03-31 00:00:00", "prop": 0.0}, {"time": "2018-06-30 00:00:00", "prop": 0.0}, {"time": "2018-09-30 00:00:00", "prop": 0.0}, {"time": "2018-12-31 00:00:00", "prop": 0.0}, {"time": "2019-03-31 00:00:00", "prop": 0.0}, {"time": "2019-06-30 00:00:00", "prop": 5.878030859662013e-05}, {"time": "2019-09-30 00:00:00", "prop": 0.0}, {"time": "2019-12-31 00:00:00", "prop": 0.0}, {"time": "2020-03-31 00:00:00", "prop": 0.00019235525267236405}, {"time": "2020-06-30 00:00:00", "prop": 0.00010981770261366133}, {"time": "2020-09-30 00:00:00", "prop": 0.00015079057343500926}, {"time": "2020-12-31 00:00:00", "prop": 0.00035744604798713193}, {"time": "2021-03-31 00:00:00", "prop": 0.0003072353935173332}, {"time": "2021-06-30 00:00:00", "prop": 0.00022756894304569998}, {"time": "2021-09-30 00:00:00", "prop": 0.00021085035949986296}, {"time": "2021-12-31 00:00:00", "prop": 0.0001996007984031936}, {"time": "2022-03-31 00:00:00", "prop": 0.00021777003484320557}, {"time": "2022-06-30 00:00:00", "prop": 0.0002713534274025215}, {"time": "2022-09-30 00:00:00", "prop": 0.00028068054236117106}, {"time": "2022-12-31 00:00:00", "prop": 0.00035549235691432633}]}]</script>
+
+
+
+</div>
+
+
+
+
+
+<div class="footer">
+  <div class="footer-contact">
+    <span class="footer-contact-item">Contact us on:</span>
+
+    <a class="footer-contact-item" href="mailto:hello@paperswithcode.com">
+    <span class=" icon-wrapper icon-ion" data-name="mail"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M424 80H88a56.06 56.06 0 0 0-56 56v240a56.06 56.06 0 0 0 56 56h336a56.06 56.06 0 0 0 56-56V136a56.06 56.06 0 0 0-56-56zm-14.18 92.63l-144 112a16 16 0 0 1-19.64 0l-144-112a16 16 0 1 1 19.64-25.26L256 251.73l134.18-104.36a16 16 0 0 1 19.64 25.26z"/></svg></span> hello@paperswithcode.com
+    </a>.
+    <span class="footer-contact-item">
+        Papers With Code is a free resource with all data licensed under <a rel="noreferrer" href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+    </span>
+  </div>
+
+  <div class="footer-links">
+      <a href="/site/terms">Terms</a>
+      <a href="/site/data-policy">Data policy</a>
+      <a href="/site/cookies-policy">Cookies policy</a>
+      <a href="/about#team" class="fair-logo"> from
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAAAgCAMAAABU6AZfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJcEhZcwAAFiUAABYlAUlSJPAAAABFUExURUdwTBwqMhwqMxsqMhkqMxsqMhwqMgCA+hwrMxJIgBsrMxsqMgJ28AF58wF38BsqMwB58hsqMwF17wF07hwrMwRm4QJz7Wj6SIIAAAAUdFJOUwDP87wcPIT+4A1tVti1Ta0smZVzG3JP8wAABR9JREFUWMO1memWpCoMgF0QxX1//0e9kCAkAadq5tzKjzndQmM+szNFEWQ9puu6xn02BXm4j23bTsdapKJAMguFgRVT/Ejyx4uH5hgvL1PUfm69jEd6bN05GTJvXF5X/hfRcPyWe2kTLDFdRA4ENVMbZZJGMt3ppEttNMDC2X/Qa7MK1OrveZoKz2/445I+U4znuvaExxKZLFCqtym/A6rzn+OjbHj8ubwDmfESslvtgWea13WeckQPUKJTf/4USHkDnVXzCrT74DnmeX+8rjgcxA4QBmPpyAKdOm+5XwFpgHH/bG9AMzLMqM9DxxCQaM0qLr7U4xE/AgIDVRBHlcoDeYd7lFee6GZOBvaaskD8S6nut0Dg0ItZEt+IQAfjseIzRDvS/WCxWQJ17phqEGqepQBS/VaXZa0H/4XUYMVt6nr309DEjYvduPT2gWELQTr0iQbC1+SADOg/kjVvspGqX6zSRAgEKbqOf6zgd82AVB+8s0YNm5NL6Y8MGzttwKt0krP9+9A/+hzQTALoUX5MnxW7iCIEUmD7IVZb8G0G1HRE9UqbWKkEUFPSR0MWqH5eB65XmgzQdN3WGjxReROxPD2LROeBIEiD7UGLraBAjMcS9W9AquTPckBgoMqEWG1SIGN57otn5KO9Y30N4rq6MQFC5TX1cEWBfJLY+mbQ5ZMUm8UK7F1A9GNc90T3enkpCZhCdUzfdQq0Wp774gnZao55YU3SgkmAVBez1eDfR4BABd/XqY36ichyaLUnyJZ8jatimUBjqQTouK2M3OGs4miiiduN5bkHCL15C9Zw7heBRMHYSMRxIGyYFsPqpwTqactT8w0P0OSA9iRY9jQvrDyIAhCoAjrrR90I1PNCpcivHEh+cATUmS5xoCaNB3ggMzqgRO/RYPIb1WviDkB4sv22kB8ghQcgUIFWzyUmaQ6kpf5DCoTFh5fwQQCt493e9ypD5Xjq7S5cMQeEubpBf2oKCoSMohPzduBAi2yimhRIc3NvrOd+gCxPexvhcGPM3SRoJpbmIhAGSudTNgNCR+qIRL05UCebsxTIiAYOX6sEkONphRkw9A9ZjADIZIDg857we5MBSiQHVMlWJgXyeTBIyVpGD4RttHC4yVtENHn7K5ASdeM3QGX2sKcKBCBmITYmrGii9TOQT7JYwxOgrhbyby4XJrvs54kuR8vlCg4XEgEOEs8Q8R5DYZboCwEESpTmi/Hhc1Lo8zxPlghZjpbLqWVGUGxSes1y4W2lkkC+Wf0C6GPaxtZo0VQW4nOhsJLqAg01HXqgGN0+083MegKoYLdisbDqzHVG1iZJYe0EUDoB+dj149gDRCCgt2lZ1zA5nhvCyEwvrc/b3N/HiZlMgINmZaR/aX3MJluf7Kepo8+F5tRfUh1wR0odzg8Srnm9w7L5SyB/p6H9Ptt0Vj310ngAlDHbnLo3mGc00sJiQ+4KEM+I8xC7fWv5VGcz3Y0C2ZCa70sgf0tXbnbY1jXpln3W6jYXDG4jNthdrfVWn8n4gAVAZe+0GgaEaeGFx4XRQyTM9yWQnNuIAy5/HPAWPuDJ8Yc66sYvSeY/8dhlYqH0kuQzkFQ03nnHCyI/gtc0GfM7BVPmL5J0yHPkXm6d3u6v/TLw3GL5ayDr6WW47awHYmS1VC+XJOVQcCCZBPk13SCvgmcb8uI/UqjqdvlOlk3j5OU20C0putdO1ZWNo0a8oumXslx0vMYaNrfPURt2hnp5G2rhtsEP5j/3Wqt0fQd1YgAAAABJRU5ErkJggg==">
+      </a>
+  </div>
+</div>
+
+
+
+<script>
+  // MathJax
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+  };
+
+  const mathjaxScript = document.createElement("script");
+  mathjaxScript.src = "https://production-assets.paperswithcode.com/static/js/mathjax/tex-chtml.js";
+  document.head.appendChild(mathjaxScript);
+</script>
+
+
+<script src="https://production-assets.paperswithcode.com/perf/766.4af6b88b.js" defer></script><script src="https://production-assets.paperswithcode.com/perf/351.a22a9607.js" defer></script><script src="https://production-assets.paperswithcode.com/perf/814.49dcf06c.js" defer></script><script src="https://production-assets.paperswithcode.com/perf/view_method.c1f0a493.js" defer></script>
+
+
+
+</body>
+</html>
+
+
