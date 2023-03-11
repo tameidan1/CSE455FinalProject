@@ -30,4 +30,4 @@ The dataset that was used was of 555 different species of birds provided by the 
 One area we didn't explore as much as we would have liked was hyperparameter optimization. While we experimented with the learning rate and the number of epochs, we didn't get to dive into other hyperparameters such as decay, batch size, and the choice of an optimizer. It was hard to explore many of these options since we wanted to refrain from changing multiple variables at once to better determine what was improving the accuracy of our model. Now that we have a model we know works well for our classification task and have found some good techniques for data augmentation, we would likely be able to improve our accuracy by adjusting these hyperparameters.
 
 # Code
-As mentioned before, we utilized both Google Colab and Kaggle Notebook. [Click Here for the Google Colab Code and Graphs](/GoogleColabCode.pynb) and Here for the Kaggle Notebook Code
+As mentioned before, we utilized both Google Colab and Kaggle Notebook. [Click Here for the Google Colab Code and Graphs](/GoogleColabCode.ipynb) and Here for the Kaggle Notebook Code
