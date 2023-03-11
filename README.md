@@ -17,5 +17,9 @@ The dataset that was used was of 555 different specifes of birds provided by the
 ### Problems Encountered
 1. We ran into quite a few issues with finding the best pre-trained net for our classification task. Specifically, it was hard at time to interpret the accuracy of our nets and what caused them to increase or decrase. For instance, when testing out ResNet50 and ResNet152, we noticed a drastic decrease in accuracy. After some researching, we determined that the decrease in accuracy was likely due to the fact that we hadn't trained the model for enough epoches since larger nets generally take longer to converge than smaller nets, such as ResNet18. We determined that we simply did not have enough GPU usage time between Google Colab and Kaggle Notebook, so we ultimately opted to choose smaller networks that we could finetune better.
 2. We found it very time consuming to test all of these models and also fine tune hyper parameters. Even utilizing a GPU for training, models often took several hours to complete training and then test its accuracy. It was at times frustrating to try to fine-tune a parameter, only to realize that our initial hypothesis for increasing accuracy was wrong after several hours.
-3. 
+
+
+### What Would Next Steps Have Been?
+One area we didn't explore as much as we would have liked was hyperparameter opitmization. While we experimented with the learning rate and the number of epoches, we didn't get to dive into other hyperparameters such as decay, batch size, and the choice of optimizer. It was hard to explore many of these options since we wanted to refrain from changing multiple variables at once in order to better determain what was improving the accuracy of our model. Now that we have a model we know works well for our classification task and have found some good techniques for data augmentation, we would likely be able to imporve our accuracy by adjusting these hyperparamters.
+
 
