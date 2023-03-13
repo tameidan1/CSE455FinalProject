@@ -8,9 +8,10 @@ For our project, we competed in the Kaggle bird-classifying competition. The goa
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
 ## **Notebook**
+For our project, our entire code runnable is linked in the following Kaggle Notebook:
+[Click Here for Kaggle Notebook Link]
 
 ## **Approach**
-
 # ****Part 1: Transfer Learning****
 Our first course of action was to determine the best neural network architecture for classifying the bird species. We wanted to leverage transfer learning by using a model pretrained on ImageNet, but we were not quite sure which one to use. To begin, we chose several candidate pre-trained models to experimentally evaluate performance. We chose the following models for experimentation.
 
@@ -23,12 +24,48 @@ Our first course of action was to determine the best neural network architecture
 For our experiment, we fixed the parameters for each model to be consistent, and trained each model for 3 epochs. We then tested each model's performance on a testing set that the model had not seen before and calculated the accuracy. For brevity, we simply list the accuracy measures below:
 
 <b>Resnet18</b>: 
+<b>ResNet50</b>:
+<b>ResNet152</b>: 
+<b>DenseNet201</b>:
+<b>EfficientNet_v2_s</b>:
 
 What we found was that EfficientNet_v2_s had the highest testing accuracy of all the models. This made sense, since EfficientNet also had the highest baseline Top 1 accuracy on ImageNet.
 
-Thanks to transfer learning, we now had a very high baseline of accuracy to work from. 
-
 The full experiment code can be found in the experiments directory of the github repository. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
+
+# ****Part 2: Data Augmentation****
+Thanks to transfer learning, we now had a very high baseline of accuracy to work from. Next, our attention shifted to working with better data. We read many research papers that outlined the benefits of data augmentation, and how they could be leveraged to prevent overfitting on models. The most effective augmentations that we read about were 
+
+- Random Flipping/Rotation
+- Random Crop
+- Adjusting Sharpness
+- Color Jitter
+- Normalization
+
+In particular, we also invented some new data augmentations that were not found in the Pytorch library, and we also implemented some known augmentations that were not well-implemented by the library. The ones in particular that we developed were
+
+- Random Occlusion
+- Random Noise
+- Random Scaled Crop
+- Random Color Muting
+
+This was a large coding component of our project, and the exact code can be found in the augmentations directory. 
+
+For each augmentation, we tested it by transforming the training dataset only with that particular augmentation, an none others. We then trained our EfficientNet model using that particular augmentation, and calculated the testing accuracy. Our goal here was to choose only the data augmentations that seemed to be effective relative to the baseline model with no augmentation. In addition, we upped the number of training epochs to 6, as our effective dataset became a bit larger with data augmentation. Our results were as follows:
+
+<b>Baseline (no augmentation)</b>: 
+<b>Random Flipping/Rotation</b>: 
+<b>Random Crop</b>: 
+<b>Adjusting Sharpness</b>: 
+<b>Color Jitter</b>: 
+<b>Normalization</b>: 
+<b>Random Occlusion</b>: 
+<b>Random Noise</b>: 
+<b>Random Scaled Crop</b>: 
+<b>Random Color Muting</b>: 
+
+We noted that only Normalization, Random Occlusion, and Random Flipping/Rotation seemed to have any benefit on the training accuracy. Quite disappointingly, we did not see any significant boost by any of our invented 
+
 
 
 For these, we essentially decided to 
@@ -56,3 +93,5 @@ One area we didn't explore as much as we would have liked was hyperparameter opt
 
 ## **Code**
 As mentioned before, we utilized both Google Colab and Kaggle Notebook. [Click Here for the Google Colab Code and Graphs](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb) and Here for the Kaggle Notebook Code
+
+## **References**
