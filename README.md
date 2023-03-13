@@ -2,12 +2,37 @@
 Project Created by Seulchan Han and Daniel Tameishi
 
 ## **Introduction**
-The project was focused on competing in a Kaggle bird classifying competition using several computer vision techniques. The goal of the competition was to have the highest accuracy possible. To achieve this, we explored multiple different techniques such as transfer learning with multiple different models, as well as experimenting with hyperparameters and data augmentation.
+For our project, we competed in the Kaggle bird-classifying competition. The goal of the competition was to create a classifier with the highest accuracy possible. To achieve this, we explored multiple different techniques such as transfer learning with multiple different models, experimenting with hyperparameters, and data augmentation. Our project was essentially a large scale survey on the different ways to improve neural network performance on image classification.
 
 ## **Dataset**
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
+## **Notebook**
+
 ## **Approach**
+
+# ****Part 1: Transfer Learning****
+Our first course of action was to determine the best neural network architecture for classifying the bird species. We wanted to leverage transfer learning by using a model pretrained on ImageNet, but we were not quite sure which one to use. To begin, we chose several candidate pre-trained models to experimentally evaluate performance. We chose the following models for experimentation.
+
+- [ResNet18](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet18.html)
+- [ResNet50](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet50.html)
+- [ResNet152](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet152.html)
+- [DenseNet201](https://pytorch.org/vision/main/models/generated/torchvision.models.densenet201.html#torchvision.models.densenet201)
+- [EfficientNet_v2_s](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s)
+
+For our experiment, we fixed the parameters for each model to be consistent, and trained each model for 3 epochs. We then tested each model's performance on a testing set that the model had not seen before and calculated the accuracy. For brevity, we simply list the accuracy measures below:
+
+<b>Resnet18</b>: 
+
+What we found was that EfficientNet_v2_s had the highest testing accuracy of all the models. This made sense, since EfficientNet also had the highest baseline Top 1 accuracy on ImageNet.
+
+Thanks to transfer learning, we now had a very high baseline of accuracy to work from. 
+
+The full experiment code can be found in the experiments directory of the github repository. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
+
+
+For these, we essentially decided to 
+
 1. To determine what neural network would be the best for our bird classifying, tried multiple pre-trained neural networks to determine which network would be the best "base" network for our bird classification task. These networks included: [ResNet18](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet18.html), [ResNet50](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet50.html), [ResNet152](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet152.html), [EfficientNet_b0](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b0.html#torchvision.models.efficientnet_b0), [EfficientNet_b1](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b1.html#torchvision.models.efficientnet_b1), and [EfficientNet_v2_s](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s). After trying all of these networks, we determined that EfficientNet_v2_s was the best suited for our needs.
 2. Along the way we also experimented with various data augmentation techniques. These included: random horizontal flipping, random cropping, and color jitter. We found the most success with a combination of random flipping and random cropping. These helped prevent our model from overfitting to the testing set by increasing the variability of the dataset.
 
