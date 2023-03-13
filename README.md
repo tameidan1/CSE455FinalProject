@@ -1,4 +1,4 @@
-### Kaggle Bird Classification Competition
+# Kaggle Bird Classification Competition
 Project Created by Seulchan Han and Daniel Tameishi
 
 ## **Introduction**
@@ -11,8 +11,8 @@ The dataset that was used was of 555 different species of birds provided by the 
 For our project, our entire code runnable is linked in the following Kaggle Notebook:
 [Click Here for Kaggle Notebook Link]
 
-## **Approach**
-# ****Part 1: Transfer Learning****
+## **Procedure**
+### ****Part 1: Transfer Learning****
 Our first course of action was to determine the best neural network architecture for classifying the bird species. We wanted to leverage transfer learning by using a model pretrained on ImageNet, but we were not quite sure which one to use. To begin, we chose several candidate pre-trained models to experimentally evaluate performance. We chose the following models for experimentation.
 
 - [ResNet18](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet18.html)
@@ -33,7 +33,7 @@ What we found was that EfficientNet_v2_s had the highest testing accuracy of all
 
 The full experiment code can be found in the experiments directory of the github repository. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
 
-# ****Part 2: Data Augmentation****
+### ****Part 2: Data Augmentation****
 Thanks to transfer learning, we now had a very high baseline of accuracy to work from. Next, our attention shifted to working with better data. We read many research papers that outlined the benefits of data augmentation, and how they could be leveraged to prevent overfitting on models. The most effective augmentations that we read about were 
 
 - Random Flipping/Rotation
@@ -78,7 +78,7 @@ For each augmentation, we tested it by transforming the training dataset only wi
 
 We noted that only Normalization, Random Occlusion, and Random Flipping/Rotation seemed to have any benefit on the training accuracy. Quite disappointingly, we did not see any significant boost by any of our invented augmentations. However, we were still happy about the boost given by the augmentations chosen. 
 
-# ****Part 3: Hyperparameter Tuning****
+### ****Part 3: Hyperparameter Tuning****
 Now, our bird classifier was nearly complete. One crucial step, though, was the importance of hyperparameters. In particular, the ones we thought would be most important were image size, weight decay, and learning rate.
 
 For the image size, we assumed, intuitively, that larger input sizes would give better results. After all, the more visual acuity the neural has, the better the accuracy it should have. To test this, we defined four input sizes: 224 x 224, 256 x 256, 384 x 384, 512 x 512.
@@ -105,7 +105,7 @@ Finally, we needed to try out different learning rate schedules. Since our GPU c
 
 Thus, we decided to train the model once for 15 epochs, following a schedule with 0.01 learning rate for the first five epochs, then a rate of 0.001 for the next five epochs, and finally a rate of 0.0001 for the final five epochs. For each epoch, we calculated the testing accuracy of the model developed so far. At any point, if the model's accuracy decreased from the previous epoch, then training was stopped. This is a technique called early stopping, and it can help prevent losses from overfitting. 
 
-# ****Part 4: Final Model****
+### ****Part 4: Final Model****
 Our final model had the following parameters and augmentations
 
 - input image size: 384 x 384
