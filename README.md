@@ -8,11 +8,10 @@ For our project, we competed in the Kaggle bird-classifying competition. The goa
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
 ## **Notebook**
-For our project, our entire code runnable is linked in the following Kaggle Notebook:
-[Click Here for Kaggle Notebook Link]
+For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds).
 
 ## **Procedure**
-### ****Part 1: Transfer Learning****
+### **Part 1: Transfer Learning**
 Our first course of action was to determine the best neural network architecture for classifying the bird species. We wanted to leverage transfer learning by using a model pretrained on ImageNet, but we were not quite sure which one to use. To begin, we chose several candidate pre-trained models to experimentally evaluate performance. We chose the following models for experimentation.
 
 - [ResNet18](https://pytorch.org/vision/master/models/generated/torchvision.models.resnet18.html)
@@ -33,7 +32,7 @@ What we found was that EfficientNet_v2_s had the highest testing accuracy of all
 
 The full experiment code can be found in the experiments directory of the github repository. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
 
-### ****Part 2: Data Augmentation****
+### **Part 2: Data Augmentation**
 Thanks to transfer learning, we now had a very high baseline of accuracy to work from. Next, our attention shifted to working with better data. We read many research papers that outlined the benefits of data augmentation, and how they could be leveraged to prevent overfitting on models. The most effective augmentations that we read about were 
 
 - Random Flipping/Rotation
@@ -78,7 +77,7 @@ For each augmentation, we tested it by transforming the training dataset only wi
 
 We noted that only Normalization, Random Occlusion, and Random Flipping/Rotation seemed to have any benefit on the training accuracy. Quite disappointingly, we did not see any significant boost by any of our invented augmentations. However, we were still happy about the boost given by the augmentations chosen. 
 
-### ****Part 3: Hyperparameter Tuning****
+### **Part 3: Hyperparameter Tuning**
 Now, our bird classifier was nearly complete. One crucial step, though, was the importance of hyperparameters. In particular, the ones we thought would be most important were image size, weight decay, and learning rate.
 
 For the image size, we assumed, intuitively, that larger input sizes would give better results. After all, the more visual acuity the neural has, the better the accuracy it should have. To test this, we defined four input sizes: 224 x 224, 256 x 256, 384 x 384, 512 x 512.
@@ -105,7 +104,7 @@ Finally, we needed to try out different learning rate schedules. Since our GPU c
 
 Thus, we decided to train the model once for 15 epochs, following a schedule with 0.01 learning rate for the first five epochs, then a rate of 0.001 for the next five epochs, and finally a rate of 0.0001 for the final five epochs. For each epoch, we calculated the testing accuracy of the model developed so far. At any point, if the model's accuracy decreased from the previous epoch, then training was stopped. This is a technique called early stopping, and it can help prevent losses from overfitting. 
 
-### ****Part 4: Final Model****
+### **Part 4: Final Model**
 Our final model had the following parameters and augmentations
 
 - input image size: 384 x 384
@@ -120,14 +119,16 @@ With this final model, we ended up getting a testing accuracy of 0.856. Not bad,
 ## **Takeways**
 
 ### Problems Encountered
-1. We ran into quite a few issues with finding the best pre-trained net for our classification task. Specifically, it was hard at the time to interpret the accuracy of our nets and what caused them to increase or decrease. For instance, when testing out ResNet50 and ResNet152, we noticed a drastic decrease in accuracy. After some research, we determined that the decrease in accuracy was likely because we hadn't trained the model for enough epochs since larger nets generally take longer to converge than smaller nets, such as ResNet18. We determined that we simply did not have enough GPU usage time between Google Colab and Kaggle Notebook, so we ultimately opted to choose smaller networks that we could finetune better.
-2. We found it very time-consuming to test all of these models and also fine-tune hyper parameters. Even utilizing a GPU for training, models often took several hours to complete training and then test their accuracy. It was at times frustrating to try to fine-tune a parameter, only to realize that our initial hypothesis for increasing accuracy was wrong after several hours. To help combat this, we utilized Kaggle Notebook as well as Google Colab so we could increase our throughput and train multiple models at the same time. We also utilized multiple Google accounts to get access to more GPU time and used checkpoints to save the state of our model to transfer it between accounts when our training was interrupted by GPU over-use
+1. Our most significant issue was the relative quality of the dataset. We noticed right away that many of the training images had low bird area relative to background area. What this meant was that the networks had less information pertaining to the birds for each image. Instead, they were mostly overwhelmed by the amount of background noise that had nothing to do with birds. We tried many data augmentation techniques to try and address this issue, and they worked to some extent. Fundamentally, however, the quality of the dataset makes the classification problem much harder. We believe that with a much higher quality dataset - such as one with birds occupying at least 50% of the image space - the models could easily get >95% accuracy even with minimal augmentation.
+2. We found it very time-consuming to test all of the models and also fine-tune hyper parameters. Grid search is very inefficient, especially with as many augmentations we experimented with. Even with utilizing a GPU, models took several hours to train and then test their accuracy. At times, it was frustrating to try to fine-tune a parameter, only to realize that our initial hypothesis for increasing accuracy was wrong after several hours. To help combat this, we utilized both the Kaggle Notebook and a Google Colab so we could increase our throughput and train multiple models at the same time. We also utilized multiple Google accounts to get access to more GPU time and used checkpoints to save the state of our model to transfer it between accounts when our training was interrupted by GPU over-use.
+3. We ran into quite a few issues with finding the best pre-trained net for our classification task. Specifically, it was hard at the time to interpret the accuracy of our nets and what caused them to increase or decrease. For instance, when testing out EfficientNet2 versus ResNet152, we noticed a drastic decrease in accuracy. After some research, we determined that the decrease in accuracy was likely because we hadn't trained the model for enough epochs since larger nets generally take longer to converge than smaller nets. Note that EfficientNet2 is much smaller than ResNet152, with about 21 million parameters compared to 60 million for ResNet152. Then, we determined that we simply did not have enough GPU usage time between between the Google Colab and Kaggle Notebook, so we ultimately opted to choose smaller networks like EfficientNet2 that we could finetune better.
+4. Finally, we would have liked to explore very deep neural networks, such as WideResNet101. Unfortunately, we ran into a RAM barrier whenever we tried to train such deep networks. Since GPU RAM was limited to 15 GB, we could not load very large networks at all onto the Kaggle/Colab GPUs. Even when we tried lowering the batch size to 1, it did not work. This was very disappointing, since many of the deepest networks had the highest Top 1 accuracy ImageNet scores. 
 
 
 ### What Would the Next Steps Have Been?
-One area we didn't explore as much as we would have liked was hyperparameter optimization. While we experimented with the learning rate and the number of epochs, we didn't get to dive into other hyperparameters such as decay, batch size, and the choice of an optimizer. It was hard to explore many of these options since we wanted to refrain from changing multiple variables at once to better determine what was improving the accuracy of our model. Now that we have a model we know works well for our classification task and have found some good techniques for data augmentation, we would likely be able to improve our accuracy by adjusting these hyperparameters.
+1. One area we didn't explore as much as we would have liked was hyperparameter optimization. While we experimented with the learning rate, weight decay, etc. we didn't get to dive into other hyperparameters such as optimizers, momentum, and batch size. It was hard to explore many of these options since we wanted to refrain from changing multiple variables at once to better determine what was improving the accuracy of our model. However, after finding a good model that worked well for the classification task, we would likely be able to improve our accuracy by adjusting these hyperparameters more. Given the time and GPU resources, we would have performed additional experiments to determine the optimal hyperparameters for the EfficientNet model. 
+2. Next, we would have liked to explore additional general training techniques. One interesting technique we read about was weight freezing. The basic idea here is that the early layers of pre-trained models could be "frozen", so that backpropogation do not change the weights. The aim is to preserve the general patterns that the early convolutional layers have learned, since they have already been trained on so much ImageNet data. If we had the time and compute, we would have tried freezing some early layers of the EfficientNet model. This may have led to significant performance gains, since the backpropogation during training can stop early.
+3. Finally, we would have liked to explore fine-tuning our model with more bird data. We did note that there were additional bird data with more species out in the Internet, but we did not have the compute resources to process all of them in addition to the given Kaggle dataset. Given the time and resources, we believe that fine-tuning our model with different bird species could lead to a significant boost in testing accuracy. At the very least, there would be less overfitting in our model. 
 
 ## **Code**
-As mentioned before, we utilized both Google Colab and Kaggle Notebook. [Click Here for the Google Colab Code and Graphs](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb) and Here for the Kaggle Notebook Code
-
-## **References**
+As mentioned before, we utilized both Kaggle Notebook and the Google Colab and Kaggle Notebook. Our main code, experiments, and explanations are in the [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds), but additional models and graphs are available in the [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb).
