@@ -1,4 +1,3 @@
-# Kaggle Bird Classification Competition
 Project Created by Seulchan Han and Daniel Tameishi
 
 ## **Introduction**
@@ -10,9 +9,12 @@ The dataset that was used was of 555 different species of birds provided by the 
 ## **Code**
 For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds). Our main code, experiments, and explanations are in the Kaggle Notebook, but additional models and graphs are available in a [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb).
 
-For this project, our main coding component came from implementing the three areas of inquiry: tranfer learning, data augmentation, and hyperparameter tuning. Our code consisted of all of the experiments, setup, and augmentation implementations.
+For this project, our main coding component came from implementing the three areas of inquiry: tranfer learning, data augmentation, and hyperparameter tuning. Our code consisted of all of the experiments, setup, and augmentation implementations. Our most signficant coding portion was the implementation of the various data augmentation techniques we used.
 
-However, we did leverage pre-trained models, as well as using some of the setup code from the Pytorch tutorials [here](https://github.com/pjreddie/uwimg/blob/main/tutorial1-pytorch-introduction.ipynb):
+However, we did leverage pre-trained models, as well as using some of the setup code from the Pytorch tutorials [here](https://github.com/pjreddie/uwimg/blob/main/tutorial1-pytorch-introduction.ipynb).
+
+## **Video**
+[Project Video Link](https://youtu.be/tav1ZI8Ontc)
 
 ## **Procedure**
 ### **Part 1: Transfer Learning**
@@ -133,9 +135,13 @@ Our final model had the following parameters and augmentations
 - learning rate: 15 epochs with 0:0.01, 5:0.001, 10:0.0001 schedule
 - weight decay: 0.0001
 - momentum: 0.9
+- batch size: 16
 - Normalization, Random Occlusion, Random Flipping/Rotation
 
-With this final model, we ended up getting a testing accuracy of 0.856. Not bad, given the GPU compute and time limits!
+With this final model, we ended up getting a testing accuracy of 0.856. Not bad, given the GPU compute and time limits! Our loss graph is also given below:
+
+![Screen Shot 2023-03-13 at 10 07 54 PM](https://user-images.githubusercontent.com/89823879/224899787-e8441678-2524-445c-89c2-6ba1436ac63e.png)
+
 
 ## **Takeways**
 
