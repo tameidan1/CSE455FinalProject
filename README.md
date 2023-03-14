@@ -7,8 +7,12 @@ For our project, we competed in the Kaggle bird-classifying competition. The goa
 ## **Dataset**
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
-## **Notebook**
-For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds).
+## **Code**
+For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds). Our main code, experiments, and explanations are in the Kaggle Notebook, but additional models and graphs are available in a [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb).
+
+For this project, our main coding component came from implementing the three areas of inquiry: tranfer learning, data augmentation, and hyperparameter tuning. Our code consisted of all of the experiments, setup, and augmentation implementations.
+
+However, we did leverage pre-trained models, as well as using some of the setup code from the Pytorch tutorials [here](https://github.com/pjreddie/uwimg/blob/main/tutorial1-pytorch-introduction.ipynb):
 
 ## **Procedure**
 ### **Part 1: Transfer Learning**
@@ -22,11 +26,11 @@ Our first course of action was to determine the best neural network architecture
 
 For our experiment, we fixed the parameters for each model to be consistent, and trained each model for 3 epochs. We then tested each model's performance on a testing set that the model had not seen before and calculated the accuracy. For brevity, we simply list the accuracy measures below:
 
-<b>Resnet18</b>: 
-<b>ResNet50</b>:
-<b>ResNet152</b>: 
-<b>DenseNet201</b>:
-<b>EfficientNet_v2_s</b>:
+<b>Resnet18</b>: 0.509
+<b>ResNet50</b>: 0.517
+<b>ResNet152</b>: 0.454
+<b>DenseNet201</b>: 0.527
+<b>EfficientNet_v2_s</b>: 0.649
 
 What we found was that EfficientNet_v2_s had the highest testing accuracy of all the models. This made sense, since EfficientNet also had the highest baseline Top 1 accuracy on ImageNet.
 
@@ -64,16 +68,23 @@ This was a large coding component of our project, and the exact code can be foun
 
 For each augmentation, we tested it by transforming the training dataset only with that particular augmentation, an none others. We then trained our EfficientNet model using that particular augmentation, and calculated the testing accuracy. Our goal here was to choose only the data augmentations that seemed to be effective relative to the baseline model with no augmentation. In addition, we upped the number of training epochs to 6, as our effective dataset became a bit larger with data augmentation. Our results were as follows:
 
-<b>Baseline (no augmentation)</b>: 
-<b>Random Flipping/Rotation</b>: 
-<b>Random Crop</b>: 
-<b>Adjusting Sharpness</b>: 
-<b>Color Jitter</b>: 
-<b>Normalization</b>: 
-<b>Random Occlusion</b>: 
-<b>Random Noise</b>: 
-<b>Random Scaled Crop</b>: 
-<b>Random Color Muting</b>: 
+**Baseline (no augmentation):** 0.786
+
+**Random Occlusion:** 0.791
+
+**Random Flip:** 0.800
+
+**Random Scaled Crop:** 0.754
+
+**Sharpness:** 0.784
+
+**Random Color Jitter:** 0.759
+
+**Normalize:** 0.792
+
+**Random Noise:** 0.619
+
+**Random Stitch:** 0.714
 
 We noted that only Normalization, Random Occlusion, and Random Flipping/Rotation seemed to have any benefit on the training accuracy. Quite disappointingly, we did not see any significant boost by any of our invented augmentations. However, we were still happy about the boost given by the augmentations chosen. 
 
@@ -84,19 +95,25 @@ For the image size, we assumed, intuitively, that larger input sizes would give 
 
 Why 384 x 384? According to the original EfficientNet2 [paper](https://arxiv.org/pdf/2104.00298.pdf), the model was trained using a 384 x 384 central crop on the images. Thus, we thought it would be important to test that particular size. For the experiments, we trained a EfficientNet on each input image size, and calculated the accuracy. The results are given as follows:
 
-<b>Size 224</b>:
-<b>Size 256</b>:
-<b>Size 384</b>:
-<b>Size 512</b>:
+**Image Size 224:** 0.790
+
+**Image Size 256:** 0.803
+
+**Image Size 384:** 0.840
+
+**Image Size 512:** 0.822
 
 According to the results, the 384 size image did the best. However, this may not be that surprising, since the original model used 384 size images, so the transfer learning may be better with that particular size.
 
 Next, we looked at weight decay. We tested four different weight decays: 0.1, 0.01, 0.001, 0.0001. We did the same experimental procedure, where we trained an EfficientNet model for each weight decay and found the testing accuracy. The results were as follows:
 
-<b>Decay 0.1</b>:
-<b>Decay 0.01</b>:
-<b>Decay 0.001</b>:
-<b>Decay 0.0001</b>:
+**Decay 0.1:** 0.002
+
+**Decay 0.01:** 0.387
+
+**Decay 0.001:** 0.785
+
+**Decay 0.0001:** 0.786
 
 Interestingly, the best weight decay was 0.0001. This indicated to us that the model needed to be quite complex to accurately fit the data, and that we should not limit the model's weights. This also made some sense, since we did have 555 different classes to fit the data on. 
 
@@ -130,5 +147,11 @@ With this final model, we ended up getting a testing accuracy of 0.856. Not bad,
 2. Next, we would have liked to explore additional general training techniques. One interesting technique we read about was weight freezing. The basic idea here is that the early layers of pre-trained models could be "frozen", so that backpropogation do not change the weights. The aim is to preserve the general patterns that the early convolutional layers have learned, since they have already been trained on so much ImageNet data. If we had the time and compute, we would have tried freezing some early layers of the EfficientNet model. This may have led to significant performance gains, since the backpropogation during training can stop early.
 3. Finally, we would have liked to explore fine-tuning our model with more bird data. We did note that there were additional bird data with more species out in the Internet, but we did not have the compute resources to process all of them in addition to the given Kaggle dataset. Given the time and resources, we believe that fine-tuning our model with different bird species could lead to a significant boost in testing accuracy. At the very least, there would be less overfitting in our model. 
 
-## **Code**
-As mentioned before, we utilized both Kaggle Notebook and the Google Colab and Kaggle Notebook. Our main code, experiments, and explanations are in the [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds), but additional models and graphs are available in the [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb).
+### What Did We Do Differently? Was it Beneficial?
+The primary thing that our project did differently was the implementation of many different invented data augmentations. To develop these, we reasoned about the structure and patterns found in the images. We then tried to create modifications that could leverage these patterns to benefit training or hide weaknesses in the dataset.
+
+The augmentations that we had the most hope for were Random Scaled Crop and Random Stitch, since these augmentations leverage the fact that the majority of the bird dataset has 
+  1. the bird centered in the middle
+  2. the bird area is low compared to the total image area
+
+Unfortunately, most of our augmentations did not work effectively on the dataset. You can see this from the results and data portion of the Kaggle Notebook, but the high level idea is that complicated augmentations seem to not work well during testing time. It seems that if the augmentations are too complex, the model can't generalize them to the testing set, which are unaugmented.
