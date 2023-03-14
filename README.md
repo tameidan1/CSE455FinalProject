@@ -1,4 +1,6 @@
-## Kaggle Bird Classification Competition
+---
+title: Kaggle Bird Classification Competition
+---
 
 Project Created by Seulchan Han and Daniel Tameishi
 
