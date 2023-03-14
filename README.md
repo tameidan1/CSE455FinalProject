@@ -1,8 +1,6 @@
----
-title: Kaggle Bird Classification Competition
----
-
 Project Created by Seulchan Han and Daniel Tameishi
+
+# Kaggle Bird Classification Competition
 
 ## **Problem Description**
 For our project, we competed in the Kaggle bird-classifying competition. The goal of the competition was to create a classifier with the highest accuracy possible. To achieve this, we explored multiple different techniques such as transfer learning with multiple different models, experimenting with hyperparameters, and data augmentation. Our project was essentially a large scale survey on the different ways to improve neural network performance on image classification.
