@@ -27,9 +27,13 @@ Our first course of action was to determine the best neural network architecture
 For our experiment, we fixed the parameters for each model to be consistent, and trained each model for 3 epochs. We then tested each model's performance on a testing set that the model had not seen before and calculated the accuracy. For brevity, we simply list the accuracy measures below:
 
 <b>Resnet18</b>: 0.509
+
 <b>ResNet50</b>: 0.517
+
 <b>ResNet152</b>: 0.454
+
 <b>DenseNet201</b>: 0.527
+
 <b>EfficientNet_v2_s</b>: 0.649
 
 What we found was that EfficientNet_v2_s had the highest testing accuracy of all the models. This made sense, since EfficientNet also had the highest baseline Top 1 accuracy on ImageNet.
