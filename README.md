@@ -1,17 +1,24 @@
 Project Created by Seulchan Han and Daniel Tameishi
 
-## **Introduction**
+## **Problem Description**
 For our project, we competed in the Kaggle bird-classifying competition. The goal of the competition was to create a classifier with the highest accuracy possible. To achieve this, we explored multiple different techniques such as transfer learning with multiple different models, experimenting with hyperparameters, and data augmentation. Our project was essentially a large scale survey on the different ways to improve neural network performance on image classification.
 
 ## **Dataset**
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
-## **Code**
+## **Code and Previous Work**
 For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds). In addition, the same notebook is uploaded to our github repository [here](https://github.com/tameidan1/CSE455FinalProject/blob/main/bird-notebook-part-1.ipynb). Our main code, experiments, and explanations are in the Kaggle Notebook. However, additional models and graphs are available in a [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb), which we used to speed up model experimentation throughput.
 
 For this project, our main coding component came from implementing the three areas of inquiry: tranfer learning, data augmentation, and hyperparameter tuning. Our code consisted of all of the experiments, setup, and augmentation implementations. Our most signficant coding portion was the implementation of the various data augmentation techniques we used.
 
-However, we did leverage pre-trained models, as well as using some of the setup code from the Pytorch tutorials [here](https://github.com/pjreddie/uwimg/blob/main/tutorial1-pytorch-introduction.ipynb).
+However, we did leverage pre-trained models, as well as using some of the setup code from the Pytorch tutorials [here](https://github.com/pjreddie/uwimg/blob/main/tutorial1-pytorch-introduction.ipynb). The pre-trained models we used are linked below in the procedure section.
+
+Finally, we took a lot of inspiration from previous work done by researchers on data augmentation and model training techniques. The papers we took ideas from were
+
+  1. [A survey on Image Data Augmentation for Deep Learning](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)
+  2. [Random Erasing Data Augmentation](https://arxiv.org/abs/1708.04896)
+  3. [Data Augmentation using Random Image Cropping and Patching for Deep CNNs
+](https://arxiv.org/abs/1811.09030)
 
 ## **Video**
 [Project Video Link](https://youtu.be/tav1ZI8Ontc)
