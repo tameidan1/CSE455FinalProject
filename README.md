@@ -7,7 +7,7 @@ For our project, we competed in the Kaggle bird-classifying competition. The goa
 The dataset that was used was of 555 different species of birds provided by the [Birds Birds Birds Kaggle Competition](https://www.kaggle.com/competitions/birds23wi)
 
 ## **Code**
-For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds). Our main code, experiments, and explanations are in the Kaggle Notebook, but additional models and graphs are available in a [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb).
+For our project, our entire code runnable is linked in the following [Kaggle Notebook](https://www.kaggle.com/code/seulchanhan/birdsbirdsbirds). In addition, the same notebook is uploaded to our github repository [here](https://github.com/tameidan1/CSE455FinalProject/blob/main/bird-notebook-part-1.ipynb). Our main code, experiments, and explanations are in the Kaggle Notebook. However, additional models and graphs are available in a [Google Colab](https://github.com/tameidan1/CSE455FinalProject/blob/main/GoogleColabCode.ipynb), which we used to speed up model experimentation throughput.
 
 For this project, our main coding component came from implementing the three areas of inquiry: tranfer learning, data augmentation, and hyperparameter tuning. Our code consisted of all of the experiments, setup, and augmentation implementations. Our most signficant coding portion was the implementation of the various data augmentation techniques we used.
 
@@ -40,7 +40,7 @@ For our experiment, we fixed the parameters for each model to be consistent, and
 
 What we found was that EfficientNet_v2_s had the highest testing accuracy of all the models. This made sense, since EfficientNet also had the highest baseline Top 1 accuracy on ImageNet.
 
-The full experiment code can be found in the experiments directory of the github repository. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
+The full experiment code can be found in Part 5 directory of the Kaggle Notebook. The exact experiments are also described in full detail in the linked Kaggle Notebook. 
 
 ### **Part 2: Data Augmentation**
 Thanks to transfer learning, we now had a very high baseline of accuracy to work from. Next, our attention shifted to working with better data. We read many research papers that outlined the benefits of data augmentation, and how they could be leveraged to prevent overfitting on models. The most effective augmentations that we read about were 
@@ -70,9 +70,9 @@ Next, we describe the Random Stitch. This transformation was one of our own inve
 ![Screen Shot 2023-03-12 at 8 41 47 PM](https://user-images.githubusercontent.com/89823879/224603415-ce3d2d27-b847-4074-9c4e-4df330786ee2.png)
 ![Screen Shot 2023-03-12 at 8 41 44 PM](https://user-images.githubusercontent.com/89823879/224603418-38369fdb-fa72-4606-91d5-c0dd0a21de6a.png)
 
-This was a large coding component of our project, and the exact code can be found in the augmentations directory. 
+This was a large coding component of our project, and the exact code can be found in Part 6 of the Kaggle Notebook. 
 
-For each augmentation, we tested it by transforming the training dataset only with that particular augmentation, an none others. We then trained our EfficientNet model using that particular augmentation, and calculated the testing accuracy. Our goal here was to choose only the data augmentations that seemed to be effective relative to the baseline model with no augmentation. In addition, we upped the number of training epochs to 6, as our effective dataset became a bit larger with data augmentation. Our results were as follows:
+For each augmentation, we tested it by transforming the training dataset only with that particular augmentation, and none others. We then trained our EfficientNet model using that particular augmentation, and calculated the testing accuracy. Our goal here was to choose only the data augmentations that seemed to be effective relative to the baseline model with no augmentation. In addition, we upped the number of training epochs to 6, as our effective dataset became a bit larger with data augmentation. Our results were as follows:
 
 **Baseline (no augmentation):** 0.786
 
